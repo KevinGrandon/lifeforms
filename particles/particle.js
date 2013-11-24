@@ -22,7 +22,7 @@ Particle.prototype = {
 
 		var findAt = this.location
 		findAt[locationMap[axis]] += amount
-		particles.particleAtLocation(findAt)
+		return particles.particleAtLocation(findAt)
 	},
 
 	/**

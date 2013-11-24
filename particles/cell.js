@@ -57,6 +57,9 @@ Cell.prototype = {
 	onEdibleCell: function() {
 		var onCell = this.getOffsetParticle('z', -1)
 
+		if (!onCell)
+			return false
+
 		for (var i in this.energy.sources) {
 			var referenceCellClass = require(__dirname + '/' + i)[i]
 			if (onCell instanceof referenceCellClass) {
