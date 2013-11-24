@@ -1,3 +1,5 @@
+var particles = require('../lib/particle_manager').particleManager
+
 function Particle(x, y, z) {
 	z = z || 0
 	this.location = [x, y, z]
@@ -12,7 +14,15 @@ Particle.prototype = {
 	 * @param {Integer} amount of offset. -1 or 1
 	 */
 	getOffsetParticle: function(axis, amount) {
+		var locationMap = {
+			x: 0,
+			y: 1,
+			z: 2
+		}
 
+		var findAt = this.location
+		findAt[locationMap[axis]] += amount
+		particles.particleAtLocation(findAt)
 	},
 
 	/**
