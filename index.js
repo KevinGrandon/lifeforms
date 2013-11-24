@@ -22,11 +22,11 @@ for (var i = 0; i < global.config.worldHeight; i++) {
 
 // Initial cells
 var Cell = require('./particles/cell').Cell
-var numCells = 6
+var numCells = 100
 for (var i = 0; i < numCells; i++) {
 	var placement = []
-	placement[0] = utils.random(0, global.config.worldWidth)
-	placement[1] = utils.random(0, global.config.worldHeight)
+	placement[0] = utils.random(0, global.config.worldWidth - 1)
+	placement[1] = utils.random(0, global.config.worldHeight - 1)
 
 	var newParticle = new Cell(placement[0], placement[1])
 	particles.push(newParticle)
