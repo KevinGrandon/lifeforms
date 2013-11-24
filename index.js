@@ -3,8 +3,11 @@ var Particle = require('./particles/particle').Particle
 var utils = require('./lib/utils')
 
 global.config = {
-	worldHeight: 40,
-	worldWidth: 80
+	world: {
+		height: 50,
+		width: 90,
+		initialCells: 10
+	}
 }
 
 var count = 0
@@ -12,8 +15,8 @@ var particles = []
 
 // Initial particles
 var allParticles = ['Substrate', 'Water']
-for (var i = 0; i < global.config.worldHeight; i++) {
-	for (var j = 0; j < global.config.worldWidth; j++) {
+for (var i = 0; i < global.config.world.height; i++) {
+	for (var j = 0; j < global.config.world.width; j++) {
 		var particleClass = allParticles[Math.floor(Math.random() * allParticles.length)]
 		particleClass = require('./particles/' + particleClass)[particleClass]
 		particles.push(new particleClass(j, i))
@@ -22,20 +25,21 @@ for (var i = 0; i < global.config.worldHeight; i++) {
 
 // Initial cells
 var Cell = require('./particles/cell').Cell
-var numCells = 100
-for (var i = 0; i < numCells; i++) {
+for (var i = 0; i < global.config.world.initialCells; i++) {
 	var placement = []
-	placement[0] = utils.random(0, global.config.worldWidth - 1)
-	placement[1] = utils.random(0, global.config.worldHeight - 1)
+	placement[0] = utils.random(0, global.config.world.width - 1)
+	placement[1] = utils.random(0, global.config.world.height - 1)
 
 	var newParticle = new Cell(placement[0], placement[1])
 	particles.push(newParticle)
 }
 
+process.stdout.write('\033[0;0f')
+
 function main() {
 	count++
 	// Clear the console completely
-	process.stdout.write('\u001B[2J\u001B[0;0f')
+	process.stdout.write('\033[0;0f')
 
 	// Tick particles for updates first
 	particles.forEach(function(particle, idx) {

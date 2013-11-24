@@ -20,10 +20,10 @@ Cell.prototype = {
 		// For now randomly move in x and y coordinate space
 		var newX = this.location[0] + utils.random(-1, 1)
 		var newY = this.location[1] + utils.random(-1, 1)
-		if (newX >= 0 && newX < global.config.worldWidth) {
+		if (newX >= 0 && newX < global.config.world.width) {
 			this.location[0] = newX
 		}
-		if (newY >= 0 && newY < global.config.worldHeight) {
+		if (newY >= 0 && newY < global.config.world.height) {
 			this.location[1] = newY
 		}
 
