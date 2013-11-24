@@ -1,0 +1,19 @@
+{
+    "name": "particles",
+    "description": "WIP",
+    "version": "0.0.1",
+    "author": "Kevin Grandon",
+    "homepage": "https://github.com/KevinGrandon/particles.js",
+    "bugs": "https://github.com/KevinGrandon/particles.js/issues",
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/KevinGrandon/particles.js.git"
+    },
+    "dependencies": {
+        "colors": "*",
+        "nodeunit": "*"
+    },
+    "engines": {
+        "node": ">=0.1.90"
+    }
+}
