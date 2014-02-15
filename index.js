@@ -1,17 +1,25 @@
 var colors = require('colors');
+var particles = require('./lib/particle_manager').particleManager
 var Particle = require('./particles/particle').Particle
 var utils = require('./lib/utils')
 
 global.config = {
+
+	// World definition
 	world: {
+
+		// How tall the world is
 		height: 50,
+
+		// How wide the world is
 		width: 90,
+
+		// Number of initial cells
 		initialCells: 10
 	}
 }
 
 var count = 0
-var particles = []
 
 // Initial particles
 var allParticles = ['Substrate', 'Water']
@@ -19,7 +27,7 @@ for (var i = 0; i < global.config.world.height; i++) {
 	for (var j = 0; j < global.config.world.width; j++) {
 		var particleClass = allParticles[Math.floor(Math.random() * allParticles.length)]
 		particleClass = require('./particles/' + particleClass)[particleClass]
-		particles.push(new particleClass(j, i))
+		particles.add(new particleClass(j, i))
 	}
 }
 
@@ -31,7 +39,7 @@ for (var i = 0; i < global.config.world.initialCells; i++) {
 	placement[1] = utils.random(0, global.config.world.height - 1)
 
 	var newParticle = new Cell(placement[0], placement[1])
-	particles.push(newParticle)
+	particles.add(newParticle)
 }
 
 process.stdout.write('\033[0;0f')
@@ -42,24 +50,25 @@ function main() {
 	process.stdout.write('\033[0;0f')
 
 	// Tick particles for updates first
-	particles.forEach(function(particle, idx) {
+	particles.each(function(particle, idx) {
 		particle.tick()
 	})
 
 	// Sort particles
-	particles = utils.sortByPosition(particles)
+	particles.sortByPosition()
 
 	// Render particles on screen
-	particles.forEach(function(particle, idx) {
+	var previousParticle
+	particles.each(function(particle, idx) {
 
 		// If this particle has the same position as the previous particle, skip it
 		// (This particle has lower z-priority)
-		var previousParticle = particles[idx-1]
 		if (previousParticle
 			&& particle.location[0] === previousParticle.location[0]
 			&& particle.location[1] === previousParticle.location[1]) {
 			return
 		}
+		previousParticle = particle
 
 		// Output new line
 		if (particle.location[0] === 0) {
