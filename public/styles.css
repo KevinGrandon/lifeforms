@@ -1,0 +1,10 @@
+.particle {
+	display: block;
+	height: 1px;
+	width: 1px;
+	position: absolute;
+}
+
+.particle.organic {
+	background: green;
+}
