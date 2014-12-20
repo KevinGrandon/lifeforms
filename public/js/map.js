@@ -105,7 +105,7 @@
 
 		drawParticles();
 
-		setTimeout(updateMap, 500);
+		setTimeout(updateMap, 200);
 	}
 
 	updateMap();
