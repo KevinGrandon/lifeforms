@@ -1,4 +1,5 @@
 var BaseParticle = require('./base_particle');
+var MarkovChainEvaluator = require('./../util/markov').ChainEvaluator;
 
 function OrganicBaseParticle(world, config) {
 	this.currentFuel = 0;
@@ -17,17 +18,40 @@ OrganicBaseParticle.prototype = {
 	__proto__: BaseParticle.prototype,
 
 	tick: function() {
-		this.maybeFeed();
-		this.maybeGrow();
+		var states = {
+			eating: this.hungerScore,
+			growing: this.growScore,
+		};
+
+		var action = MarkovChainEvaluator.evaluate(states);
+		if (action === 'eating') {
+			this.feed();
+		} else if (action === 'growing') {
+			this.grow();
+		}
+
+		this.action = action;
 	},
 
-	maybeFeed: function() {
+	/**
+	 * How hungry is this cell?
+	 * 10 is really hungry!
+	 */
+	get hungerScore() {
+		return 10 - this.currentFuel;
+	},
+
+	get breedScore() {
+		return this.currentFuel;
+	},
+
+	feed: function() {
 		if (Math.random() > 0.5) {
 			this.currentFuel++;
 		}
 	},
 
-	maybeGrow: function() {
+	grow: function() {
 		if (this.currentFuel > this.requiredFuelToSpawn) {
 			this.world.spawnNear(this, OrganicBaseParticle);
 			this.currentFuel = 0;
