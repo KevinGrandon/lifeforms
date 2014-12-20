@@ -177,11 +177,19 @@ app.get('/particles/since/:lastFetched', function(req, res) {
 		updates: []
 	};
 
+	// Limit to requests at any one time.
+	var fetchFrom = parseInt(req.params.lastFetched, 10);
+	var limit = fetchFrom + 20000;
+
 	// Export data for the view.
-	for (var i = req.params.lastFetched, iLen = worldObject.updates.length; i < iLen; i++) {
+	for (var i = fetchFrom, iLen = worldObject.updates.length; i < iLen; i++) {
 		var update = worldObject.updates[i];
 		particleData.updates.push(update);
 		particleData.lastFetched = i;
+
+		if (i >= limit) {
+			break;
+		}
 	}
 
 	debug('updates found', particleData.updates.length);

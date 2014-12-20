@@ -1,25 +1,20 @@
 function BaseParticle(config) {
 	this.config = config;
-	this.element = document.createElement('div');
-	this.element.className = this.className;
-	document.body.appendChild(this.element);
-
 	this.move(config.position);
 }
 
 BaseParticle.prototype = {
 	move: function(position) {
-		this.element.style.transform = 'translate(' + position[0] + 'px, ' + position[1] + 'px)';
+		this.position = position;
 	},
 	remove: function() {
-		document.body.removeChild(this.element);
 	}
 };
 
 
 
 function OrganicBaseParticle(config) {
-	this.className = 'organic particle';
+	this.color = '#00FF00';
 	BaseParticle.call(this, config);
 }
 
@@ -30,7 +25,7 @@ OrganicBaseParticle.prototype = {
 
 
 function OrganicEaterParticle(config) {
-	this.className = 'hunter particle';
+	this.color = '#FF0000';
 	BaseParticle.call(this, config);
 }
 
