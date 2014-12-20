@@ -1,10 +1,10 @@
 module.exports = {
 	worldSize: 1000,
 
-	tickDelay: 500,
+	tickDelay: 200,
 
 	initialParticles: {
-		OrganicBase: 500,
-		OrganicEater: 20
+		OrganicBase: 2000,
+		OrganicEater: 100
 	}
 };

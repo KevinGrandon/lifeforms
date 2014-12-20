@@ -2,8 +2,8 @@ var BaseParticle = require('./base_particle');
 
 function OrganicEaterParticle(world, config) {
 	this.currentFuel = 0;
-	this.requiredFuelToSpawn = 5;
-	this.maxOffshootSpawnDistance = 3;
+	this.requiredFuelToSpawn = 3;
+	this.maxOffshootSpawnDistance = 5;
 
 	this.action = 'searching';
 	this.targetCoords = null;
