@@ -4,16 +4,43 @@ function BaseParticle(config) {
 	this.element.className = this.className;
 	document.body.appendChild(this.element);
 
-	this.element.style.transform = 'translate(' + config.position[0] + 'px, ' + config.position[1] + 'px)';
+	this.move(config.position);
 }
+
+BaseParticle.prototype = {
+	move: function(position) {
+		this.element.style.transform = 'translate(' + position[0] + 'px, ' + position[1] + 'px)';
+	},
+	remove: function() {
+		document.body.removeChild(this.element);
+	}
+};
+
+
 
 function OrganicBaseParticle(config) {
 	this.className = 'organic particle';
 	BaseParticle.call(this, config);
 }
 
-OrganicBaseParticle.__proto__ = BaseParticle.prototype;
+OrganicBaseParticle.prototype = {
+	__proto__: BaseParticle.prototype
+};
+
+
+
+function OrganicEaterParticle(config) {
+	this.className = 'hunter particle';
+	BaseParticle.call(this, config);
+}
+
+OrganicEaterParticle.prototype = {
+	__proto__: BaseParticle.prototype
+};
+
+
 
 window.ClientParticle = {
-	OrganicBaseParticle: OrganicBaseParticle
+	OrganicBaseParticle: OrganicBaseParticle,
+	OrganicEaterParticle: OrganicEaterParticle
 };

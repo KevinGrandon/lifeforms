@@ -7,8 +7,19 @@
 	 */
 	function handleUpdate(update) {
 		switch(update.action) {
-			case "created":
+			case 'created':
 				particlesById[update.id] = new ClientParticle[update.name](update);
+				break;
+			case 'moved':
+				particlesById[update.id].move(update.position);
+				break;
+			case 'removed':
+				if (!particlesById[update.id]) {
+					return;
+				}
+
+				particlesById[update.id].remove();
+				delete particlesById[update.id];
 				break;
 		}
 	}
