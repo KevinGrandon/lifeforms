@@ -1,10 +1,12 @@
 var BaseParticle = require('./base_particle');
 var MarkovChainEvaluator = require('./../util/markov').ChainEvaluator;
+var random = require('./../util/random');
 
 function OrganicEaterParticle(world, config) {
 	this.currentFuel = 5;
 	this.requiredFuelToSpawn = 8;
 	this.maxOffshootSpawnDistance = 5;
+	this.eyesight = 10;
 
 	this.targetCoords = null;
 
@@ -55,9 +57,12 @@ OrganicEaterParticle.prototype = {
 			BaseParticle.prototype.moveTowards.call(this, this.targetCoords);
 		} else {
 			// Find food and set coords to walk to.
-			var closest = this.world.findClosest(this, 'OrganicBaseParticle');
+			var closest = this.world.findClosestWithinSensors(this, 'OrganicBaseParticle');
 			if (closest) {
 				this.targetCoords = closest.position;
+			} else {
+				// Walk in a random direction if closest target is null to find food.
+				this.targetCoords = [this.position[0] + random(-30, 30), this.position[0] + random(-30, 30)];
 			}
 		}
 	},
