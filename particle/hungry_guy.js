@@ -4,6 +4,7 @@ var random = require('./../util/random');
 
 function HungryGuyParticle(world, config) {
 	this.size = 5;
+	this.speed = 2;
 	this.currentFuel = 5;
 	this.requiredFuelToSpawn = 20;
 	this.maxOffshootSpawnDistance = 15;

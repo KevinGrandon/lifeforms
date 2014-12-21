@@ -4,6 +4,7 @@ var random = require('./../util/random');
 
 function OrganicEaterParticle(world, config) {
 	this.size = 1;
+	this.speed = 1;
 	this.currentFuel = 5;
 	this.requiredFuelToSpawn = 8;
 	this.maxOffshootSpawnDistance = 5;
@@ -64,7 +65,7 @@ OrganicEaterParticle.prototype = {
 				this.targetCoords = closest.position;
 			} else {
 				// Walk in a random direction if closest target is null to find food.
-				this.targetCoords = [this.position[0] + random(-30, 30), this.position[0] + random(-30, 30)];
+				this.targetCoords = [this.position[0] + random(-30, 30), this.position[1] + random(-30, 30)];
 			}
 		}
 	},
