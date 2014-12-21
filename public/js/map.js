@@ -1,5 +1,7 @@
 (function() {
 
+	var socket = io();
+
 	var ctx = document.getElementById('map').getContext('2d');
 
 	var particlesById = {};
@@ -27,6 +29,8 @@
 				ctx.clearRect(xy[0], xy[1], 1, 1);
 			}
 		}
+
+		positionsInvalidations = [];
 	}
 
 	function cacheParticlePosition(xy, particle) {
@@ -56,10 +60,20 @@
 
 		switch(update.action) {
 			case 'created':
+				// If it's created already, return.
+				if (particlesById[update.id]) {
+					return;
+				}
 				particlesById[update.id] = new ClientParticle[update.name](update);
 				cacheParticlePosition(update.position, particlesById[update.id]);
 				break;
 			case 'moved':
+				// If we don't have the particle, we can create it.
+				if (!particlesById[update.id]) {
+					update.action = 'created';
+					handleUpdate(update);
+					return;
+				}
 				var oldPosition = particlesById[update.id].position;
 
 				// Also move the new position to the invalidation map.
@@ -85,29 +99,24 @@
 		}
 	}
 
-	// Just get particle changes past this timestamp;
-	var lastFetch = 0;
-
-	function updateMap() {
+	// Get the current state:
+	function getCurrentState() {
 		var oReq = new XMLHttpRequest();
-		oReq.onload = onResponse;
-		oReq.open('get', '/particles/since/' + lastFetch, true);
+		oReq.onload = function onResponse() {
+			var resp = JSON.parse(this.responseText);
+			resp.forEach(handleUpdate)
+			drawParticles();
+		};
+		oReq.open('get', '/particles/current', true);
 		oReq.send();
 	}
+	getCurrentState();
 
-	function onResponse() {
-		positionsInvalidations = [];
-
-		var resp = JSON.parse(this.responseText);
-		lastFetch = resp.lastFetched + 1;
-
-		resp.updates.forEach(handleUpdate)
-
+	// And handle updates:
+	socket.on('update', function(msg) {
+		handleUpdate(msg);
 		drawParticles();
+	});
 
-		setTimeout(updateMap, 200);
-	}
-
-	updateMap();
 
 }());
