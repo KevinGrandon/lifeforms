@@ -5,7 +5,8 @@ var defaultConfig = {
 
 	initialParticles: {
 		OrganicBase: 4000,
-		OrganicEater: 200
+		OrganicEater: 200,
+		HungryGuy: 6
 	}
 }
 
@@ -14,6 +15,8 @@ var defaultConfig = {
 if (process.env.SMALL) {
 	defaultConfig.initialParticles.OrganicBase = 1;
 	defaultConfig.initialParticles.OrganicEater = 1;
+	defaultConfig.initialParticles.HungryGuy = 1;
+	defaultConfig.worldSize = 100;
 }
 
 module.exports = defaultConfig;

@@ -5,6 +5,8 @@ var uuid = require('node-uuid');
 var particleTypes = {};
 particleTypes.OrganicBase = require('./particle/organic_base');
 particleTypes.OrganicEater = require('./particle/organic_eater');
+particleTypes.HungryGuy = require('./particle/hungry_guy');
+
 
 // List of all particles.
 var particles = [];

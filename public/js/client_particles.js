@@ -35,7 +35,19 @@ OrganicEaterParticle.prototype = {
 
 
 
+function HungryGuyParticle(config) {
+	this.color = '#0000FF';
+	BaseParticle.call(this, config);
+}
+
+HungryGuyParticle.prototype = {
+	__proto__: BaseParticle.prototype
+};
+
+
+
 window.ClientParticle = {
 	OrganicBaseParticle: OrganicBaseParticle,
-	OrganicEaterParticle: OrganicEaterParticle
+	OrganicEaterParticle: OrganicEaterParticle,
+	HungryGuyParticle: HungryGuyParticle
 };

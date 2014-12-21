@@ -2,21 +2,21 @@ var BaseParticle = require('./base_particle');
 var MarkovChainEvaluator = require('./../util/markov').ChainEvaluator;
 var random = require('./../util/random');
 
-function OrganicEaterParticle(world, config) {
+function HungryGuyParticle(world, config) {
 	this.currentFuel = 5;
-	this.requiredFuelToSpawn = 8;
-	this.maxOffshootSpawnDistance = 5;
-	this.eyesight = 10;
-	this.fuelValueWhenConsumed = 2;
+	this.requiredFuelToSpawn = 20;
+	this.maxOffshootSpawnDistance = 15;
+	this.eyesight = 100;
+	this.fuelValueWhenConsumed = 5;
 
 	this.targetCoords = null;
 
-	this.name = 'OrganicEaterParticle';
+	this.name = 'HungryGuyParticle';
 
 	BaseParticle.call(this, world, config);
 }
 
-OrganicEaterParticle.prototype = {
+HungryGuyParticle.prototype = {
 
 	__proto__: BaseParticle.prototype,
 
@@ -42,7 +42,7 @@ OrganicEaterParticle.prototype = {
 	 * 10 is really hungry!
 	 */
 	get hungerScore() {
-		return 15 - this.currentFuel;
+		return 20 - this.currentFuel;
 	},
 
 	get breedScore() {
@@ -58,7 +58,7 @@ OrganicEaterParticle.prototype = {
 			BaseParticle.prototype.moveTowards.call(this, this.targetCoords);
 		} else {
 			// Find food and set coords to walk to.
-			var closest = this.world.findClosestWithinSensors(this, 'OrganicBaseParticle');
+			var closest = this.world.findClosestWithinSensors(this, 'OrganicEaterParticle');
 			if (closest) {
 				this.targetCoords = closest.position;
 			} else {
@@ -69,17 +69,17 @@ OrganicEaterParticle.prototype = {
 	},
 
 	feed: function() {
-		var fuel = this.world.tryToEatAtCurrentLocation(this, 'OrganicBaseParticle');
+		var fuel = this.world.tryToEatAtCurrentLocation(this, 'OrganicEaterParticle');
 		// Increment the fuel by what we ate.
 		this.currentFuel += fuel;
 	},
 
 	breed: function() {
 		if (this.currentFuel > this.requiredFuelToSpawn) {
-			this.world.spawnNear(this, OrganicEaterParticle);
+			this.world.spawnNear(this, HungryGuyParticle);
 			this.currentFuel = 0;
 		}
 	}
 };
 
-module.exports = OrganicEaterParticle;
+module.exports = HungryGuyParticle;
