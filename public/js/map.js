@@ -8,6 +8,11 @@
 
 	var particlesByXY = {}
 
+	/**
+	 * A list of invalidations to perform at every draw step.
+	 * This is an array of arrays which contain:
+	 * - [[xPosition, yPosition], rectSize]
+	 */
 	var positionsInvalidations = [];
 
 	var _lastFillStyle = null;
@@ -15,18 +20,26 @@
 	function drawParticles() {
 		// First handle invalidations
 		for (var i = positionsInvalidations.length - 1; i >= 0; i--) {
-			var xy = positionsInvalidations[i];
+			var xy = positionsInvalidations[i][0];
+			var size = positionsInvalidations[i][1];
 
+			// Clear the rect first.
+			ctx.clearRect(xy[0], xy[1], size, size);
+
+			// Draw all aprticles within the square.
 			// If we have a particle, draw it, otherwise clear the rect.
-			if (particlesByXY[xy[0]] && particlesByXY[xy[0]][xy[1]].length) {				
-				var existingParticle = particlesByXY[xy[0]][xy[1]][0];
-				if (_lastFillStyle !== existingParticle.color) {
-					ctx.fillStyle = existingParticle.color;
-					_lastFillStyle = existingParticle.color;
+			for(var innerX = xy[0]; innerX < xy[0] + size; innerX++) {
+				for(var innerY = xy[1]; innerY < xy[1] + size; innerY++) {
+					if (particlesByXY[innerX] && particlesByXY[innerX][innerY] && particlesByXY[innerX][innerY].length) {
+						var existingParticle = particlesByXY[innerX][innerY][0];
+						if (_lastFillStyle !== existingParticle.color) {
+							ctx.fillStyle = existingParticle.color;
+							_lastFillStyle = existingParticle.color;
+						}
+						var size = existingParticle.config.size;
+						ctx.fillRect(innerX, innerY, size, size);
+					}
 				}
-				ctx.fillRect(xy[0], xy[1], 1, 1);
-			} else {
-				ctx.clearRect(xy[0], xy[1], 1, 1);
 			}
 		}
 
@@ -56,7 +69,7 @@
 	 * Handles a particle update.
 	 */
 	function handleUpdate(update) {
-		positionsInvalidations.push(update.position);
+		positionsInvalidations.push([update.position, update.size]);
 
 		switch(update.action) {
 			case 'created':
@@ -77,7 +90,7 @@
 				var oldPosition = particlesById[update.id].position;
 
 				// Also move the new position to the invalidation map.
-				positionsInvalidations.push(oldPosition);
+				positionsInvalidations.push([oldPosition, particlesById[update.id].config.size]);
 
 				// Remove old entires from the particlesByXY map.
 				removeIdFromXYMap(update.id, oldPosition);

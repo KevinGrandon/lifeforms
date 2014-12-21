@@ -71,7 +71,8 @@ Engine.prototype = {
 			id: particle.id,
 			time: Date.now(),
 			action: action,
-			position: particle.position
+			position: particle.position,
+			size: particle.size
 		};
 	},
 

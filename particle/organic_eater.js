@@ -3,6 +3,7 @@ var MarkovChainEvaluator = require('./../util/markov').ChainEvaluator;
 var random = require('./../util/random');
 
 function OrganicEaterParticle(world, config) {
+	this.size = 1;
 	this.currentFuel = 5;
 	this.requiredFuelToSpawn = 8;
 	this.maxOffshootSpawnDistance = 5;
