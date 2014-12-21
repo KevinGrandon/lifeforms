@@ -28,8 +28,8 @@ BaseParticle.prototype = {
 		var toPointX = (newPosition[0] - this.position[0]) / dist;
 		var toPointY = (newPosition[1] - this.position[1]) / dist;
 
-		this.position[0] += Math.ceil(toPointX * this.speed);
-		this.position[1] += Math.ceil(toPointY * this.speed);
+		this.position[0] += Math.round(toPointX * this.speed);
+		this.position[1] += Math.round(toPointY * this.speed);
 
 		this.world.registerPosition(this);
 		this.world.update(this, 'moved');

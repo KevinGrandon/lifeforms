@@ -8,7 +8,7 @@ function OrganicEaterParticle(world, config) {
 	this.currentFuel = 5;
 	this.requiredFuelToSpawn = 8;
 	this.maxOffshootSpawnDistance = 5;
-	this.eyesight = 10;
+	this.eyesight = 20;
 	this.fuelValueWhenConsumed = 2;
 
 	this.targetCoords = null;
