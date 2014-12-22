@@ -22,6 +22,8 @@ HungryGuyParticle.prototype = {
 
 	__proto__: BaseParticle.prototype,
 
+	color: '#0000FF',
+
 	tick: function() {
 		var states = {
 			eating: this.hungerScore,
@@ -65,7 +67,7 @@ HungryGuyParticle.prototype = {
 				this.targetCoords = closest.position;
 			} else {
 				// Walk in a random direction if closest target is null to find food.
-				this.targetCoords = [this.position[0] + random(-30, 30), this.position[0] + random(-30, 30)];
+				this.targetCoords = [this.position[0] + random(-30, 30), this.position[1] + random(-30, 30)];
 			}
 		}
 	},

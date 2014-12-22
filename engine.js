@@ -72,6 +72,7 @@ Engine.prototype = {
 			time: Date.now(),
 			action: action,
 			position: particle.position,
+			color: particle.color,
 			size: particle.size
 		};
 	},

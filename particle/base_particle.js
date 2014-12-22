@@ -9,6 +9,9 @@ function BaseParticle(world, config) {
 }
 
 BaseParticle.prototype = {
+
+	color: '#ffffff',
+
 	tick: function() {
 	},
 

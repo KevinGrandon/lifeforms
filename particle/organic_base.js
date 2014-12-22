@@ -20,6 +20,8 @@ OrganicBaseParticle.prototype = {
 
 	__proto__: BaseParticle.prototype,
 
+	color: '#00FF00',
+
 	tick: function() {
 		var states = {
 			eating: this.hungerScore,

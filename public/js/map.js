@@ -77,7 +77,7 @@
 				if (particlesById[update.id]) {
 					return;
 				}
-				particlesById[update.id] = new ClientParticle[update.name](update);
+				particlesById[update.id] = new BaseParticle(update);
 				cacheParticlePosition(update.position, particlesById[update.id]);
 				break;
 			case 'moved':
@@ -104,7 +104,6 @@
 					return;
 				}
 
-				particlesById[update.id].remove();
 				delete particlesById[update.id];
 				// Remove old entires from the particlesByXY map.
 				removeIdFromXYMap(update.id, update.position);
