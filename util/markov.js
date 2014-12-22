@@ -17,7 +17,7 @@ MarkovChainEvaluator.evaluate = function(options) {
 };
 
 exports.ChainEvaluator = MarkovChainEvaluator;
-
+	
 
 var MarkovProcess = function(rewardFn) {
 	this._states = {};
@@ -70,3 +70,41 @@ MarkovProcess.prototype.evaluate = function(currentState, data) {
 };
 
 exports.Process = MarkovProcess;
+
+
+/* 
+Example usage, flip to this:
+var states = {
+    'a': 100,
+    'b': 100,
+    'c': 0
+};
+var state = 'a';
+
+var getRewardForState = function (currentState, state, context) {
+    return states[state];
+}
+
+var process = new Markov.Process(getRewardForState)
+    .add('a', ['b', 'c'])
+    .add('b', ['a', 'c'])
+    .add('c', ['a']);
+
+state = process.evaluate(state, {});
+test.equal(state, 'b', 'state should change to "b"');
+
+state = process.evaluate(state, {});
+test.equal(state, 'a', 'state should change to "a"');
+
+states.b = 0;
+states.c = 100;
+state = process.evaluate(state, {});
+test.equal(state, 'c', 'state should change to "c"');
+
+state = process.evaluate(state, {});
+test.equal(state, 'a', 'state should change to "a"');
+
+states.b = 100;
+state = process.evaluate(state, {});
+test.equal(['b', 'c'].indexOf(state) !== -1, true);
+*/
