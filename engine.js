@@ -2,11 +2,11 @@ var distance = require('./util/distance');
 var random = require('./util/random');
 var uuid = require('node-uuid');
 
-var particleTypes = {};
-particleTypes.OrganicBase = require('./particle/organic_base');
-particleTypes.OrganicEater = require('./particle/organic_eater');
-particleTypes.HungryGuy = require('./particle/hungry_guy');
-
+var particleTypes = [
+	require('./particle/organic_base'),
+	require('./particle/organic_eater'),
+	require('./particle/hungry_guy')
+];
 
 // List of all particles.
 var particles = [];
@@ -211,20 +211,26 @@ Engine.prototype = {
 
 	init: function() {
 		// Populate initial particles.
-		for (var i in this.config.initialParticles) {
-			var count = this.config.initialParticles[i];
+		for (var idx = 0; idx < this.config.initialParticles.length; idx++) {
+			var particleDef = this.config.initialParticles[idx];
+			var count = particleDef.count;
 
 			for (var j = 0; j < count; j++) {
 				var position = [
 					random(0, this.config.worldSize),
 					random(0, this.config.worldSize)
 				];
-				var newParticle = new particleTypes[i](
+				var newParticle = new particleTypes[idx](
 					this,
 					{
 						id: uuid.v4(),
 						position: position
 					});
+
+				newParticle.size = particleDef.size;
+				newParticle.color = particleDef.color;
+				newParticle.name = particleDef.className;
+
 				this.registerPosition(newParticle);
 				particles.push(newParticle);
 			}

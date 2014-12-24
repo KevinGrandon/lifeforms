@@ -4,13 +4,10 @@ var MarkovChainEvaluator = require('./../util/markov').ChainEvaluator;
 var random = require('./../util/random');
 
 function OrganicBaseParticle(world, config) {
-	this.size = 1;
 	this.currentFuel = random(0, 10);
 	this.requiredFuelToSpawn = 10;
 	this.maxOffshootSpawnDistance = 5;
 	this.fuelValueWhenConsumed = 1;
-
-	this.name = 'OrganicBaseParticle';
 
 	BaseParticle.call(this, world, config);
 }
@@ -19,8 +16,6 @@ function OrganicBaseParticle(world, config) {
 OrganicBaseParticle.prototype = {
 
 	__proto__: BaseParticle.prototype,
-
-	color: '#00FF00',
 
 	tick: function() {
 		var states = {

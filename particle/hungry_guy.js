@@ -3,7 +3,6 @@ var MarkovChainEvaluator = require('./../util/markov').ChainEvaluator;
 var random = require('./../util/random');
 
 function HungryGuyParticle(world, config) {
-	this.size = 5;
 	this.speed = 2;
 	this.currentFuel = 5;
 	this.requiredFuelToSpawn = 20;
@@ -13,16 +12,12 @@ function HungryGuyParticle(world, config) {
 
 	this.targetCoords = null;
 
-	this.name = 'HungryGuyParticle';
-
 	BaseParticle.call(this, world, config);
 }
 
 HungryGuyParticle.prototype = {
 
 	__proto__: BaseParticle.prototype,
-
-	color: '#0000FF',
 
 	tick: function() {
 		var states = {
@@ -62,7 +57,7 @@ HungryGuyParticle.prototype = {
 			BaseParticle.prototype.moveTowards.call(this, this.targetCoords);
 		} else {
 			// Find food and set coords to walk to.
-			var closest = this.world.findClosestWithinSensors(this, 'OrganicEaterParticle');
+			var closest = this.world.findClosestWithinSensors(this, 'OrganicEater');
 			if (closest) {
 				this.targetCoords = closest.position;
 			} else {
@@ -73,7 +68,7 @@ HungryGuyParticle.prototype = {
 	},
 
 	feed: function() {
-		var fuel = this.world.tryToEatAtCurrentLocation(this, 'OrganicEaterParticle');
+		var fuel = this.world.tryToEatAtCurrentLocation(this, 'OrganicEater');
 		// Increment the fuel by what we ate.
 		this.currentFuel += fuel;
 	},
