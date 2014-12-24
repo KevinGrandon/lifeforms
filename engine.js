@@ -206,6 +206,11 @@ Engine.prototype = {
 	createParticle: function(ParticleClass, config, position) {
 		config.id = uuid.v4();
 		config.position = position;
+
+		// Initial fuel to level. For now we just pick a random number between 0 and the amount needed.
+		// This is so that all particles don't replicate at the same time initially, feels more natural if they don't.
+		config.currentFuel = random(0, config.requiredFuelToSpawn);
+
 		var newParticle = new ParticleClass(this, config);
 
 		this.registerPosition(newParticle);

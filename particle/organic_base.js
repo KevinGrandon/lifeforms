@@ -3,7 +3,6 @@ var MarkovChainEvaluator = require('./../util/markov').ChainEvaluator;
 var random = require('./../util/random');
 
 function OrganicBaseParticle(world, config) {
-	this.currentFuel = random(0, 10);
 	BaseParticle.call(this, world, config);
 }
 
