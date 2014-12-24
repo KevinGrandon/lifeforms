@@ -4,6 +4,18 @@ var defaultConfig = {
 	tickDelay: 100,
 
 	initialParticles: [
+		/**
+		 * A note about particle configuration:
+		 * count - The number of initial particles of this type populated on the map.
+		 * classificaiton - What type of particle this is.
+		 * size - How large the particle should be.
+		 * speed - How fast the particle moves.
+		 * color - The color of the particle.
+		 * eyesight - How far away the particle can "see". Useful for animal types.
+		 * requiredFuelToSpawn - This much fuel is required to breed new generations.
+		 * fuelValueWhenConsumed - How much fuel this particle gives when consumed.
+		 * consumes - What classification of particles can we eat.
+		 */
 		{
 			count: 4000,
 			classificaiton: 'Plant',
