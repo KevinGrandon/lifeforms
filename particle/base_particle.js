@@ -2,15 +2,17 @@ var distance = require('./../util/distance');
 
 function BaseParticle(world, config) {
 	this.world = world;
-	this.id = config.id;
-	this.position = config.position;
+	this.originalConfig = {};
+
+	for (var i in config) {
+		this.originalConfig[i] = config[i];
+		this[i] = config[i];
+	}
 
 	this.world.update(this, 'created');
 }
 
 BaseParticle.prototype = {
-
-	color: '#ffffff',
 
 	tick: function() {
 	},

@@ -6,21 +6,33 @@ var defaultConfig = {
 	initialParticles: [
 		{
 			count: 4000,
-			className: 'OrganicBase',
+			name: 'OrganicBase',
 			size: 1,
-			color: '#00FF00'
+			speed: 1,
+			color: '#00FF00',
+			eyesight: 0,
+			requiredFuelToSpawn: 10,
+			fuelValueWhenConsumed: 1
 		},
 		{
 			count: 200,
-			className: 'OrganicEater',
+			name: 'OrganicEater',
 			size: 1,
-			color: '#FF0000'
+			speed: 1,
+			color: '#FF0000',
+			eyesight: 20,
+			requiredFuelToSpawn: 8,
+			fuelValueWhenConsumed: 2
 		},
 		{
 			count: 6,
-			className: 'HungryGuy',
+			name: 'HungryGuy',
 			size: 5,
-			color: '#0000FF'
+			speed: 2,
+			color: '#0000FF',
+			eyesight: 100,
+			requiredFuelToSpawn: 20,
+			fuelValueWhenConsumed: 5
 		}
 	]
 };

@@ -107,18 +107,12 @@ Engine.prototype = {
 	 * @param {Object} BaseClass Of the new particle to spawn.
 	 */
 	spawnNear: function(particle, BaseClass) {
+		var spawnDistance = particle.size * 5;
 		var newParticlePosition = [
-			particle.position[0] + random(0 - particle.maxOffshootSpawnDistance, particle.maxOffshootSpawnDistance),
-			particle.position[1] + random(0 - particle.maxOffshootSpawnDistance, particle.maxOffshootSpawnDistance)
+			particle.position[0] + random(0 - spawnDistance, spawnDistance),
+			particle.position[1] + random(0 - spawnDistance, spawnDistance)
 		];
-		var newParticle = new BaseClass(
-			this,
-			{
-				id: uuid.v4(),
-				position: newParticlePosition
-			});
-		this.registerPosition(newParticle);
-		particles.push(newParticle);
+		this.createParticle(BaseClass, particle.originalConfig, newParticlePosition);
 	},
 
 	/**
@@ -209,6 +203,15 @@ Engine.prototype = {
 		return 0;
 	},
 
+	createParticle: function(ParticleClass, config, position) {
+		config.id = uuid.v4();
+		config.position = position;
+		var newParticle = new ParticleClass(this, config);
+
+		this.registerPosition(newParticle);
+		particles.push(newParticle);
+	},
+
 	init: function() {
 		// Populate initial particles.
 		for (var idx = 0; idx < this.config.initialParticles.length; idx++) {
@@ -220,19 +223,7 @@ Engine.prototype = {
 					random(0, this.config.worldSize),
 					random(0, this.config.worldSize)
 				];
-				var newParticle = new particleTypes[idx](
-					this,
-					{
-						id: uuid.v4(),
-						position: position
-					});
-
-				newParticle.size = particleDef.size;
-				newParticle.color = particleDef.color;
-				newParticle.name = particleDef.className;
-
-				this.registerPosition(newParticle);
-				particles.push(newParticle);
+				this.createParticle(particleTypes[idx], particleDef, position);
 			}
 		}
 

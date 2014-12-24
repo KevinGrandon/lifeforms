@@ -3,15 +3,8 @@ var MarkovChainEvaluator = require('./../util/markov').ChainEvaluator;
 var random = require('./../util/random');
 
 function HungryGuyParticle(world, config) {
-	this.speed = 2;
 	this.currentFuel = 5;
-	this.requiredFuelToSpawn = 20;
-	this.maxOffshootSpawnDistance = 15;
-	this.eyesight = 100;
-	this.fuelValueWhenConsumed = 5;
-
 	this.targetCoords = null;
-
 	BaseParticle.call(this, world, config);
 }
 
