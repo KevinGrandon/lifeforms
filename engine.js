@@ -3,7 +3,7 @@ var random = require('./util/random');
 var uuid = require('node-uuid');
 
 var particleTypes = [
-	require('./particle/organic_base'),
+	require('./particle/plant'),
 	require('./particle/organic_eater'),
 	require('./particle/hungry_guy')
 ];

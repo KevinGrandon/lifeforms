@@ -52,7 +52,7 @@ OrganicEaterParticle.prototype = {
 			BaseParticle.prototype.moveTowards.call(this, this.targetCoords);
 		} else {
 			// Find food and set coords to walk to.
-			var closest = this.world.findClosestWithinSensors(this, 'OrganicBase');
+			var closest = this.world.findClosestWithinSensors(this, 'Plant');
 			if (closest) {
 				this.targetCoords = closest.position;
 			} else {
@@ -63,7 +63,7 @@ OrganicEaterParticle.prototype = {
 	},
 
 	feed: function() {
-		var fuel = this.world.tryToEatAtCurrentLocation(this, 'OrganicBase');
+		var fuel = this.world.tryToEatAtCurrentLocation(this, 'Plant');
 		// Increment the fuel by what we ate.
 		this.currentFuel += fuel;
 	},

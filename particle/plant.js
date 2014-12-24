@@ -2,11 +2,11 @@ var BaseParticle = require('./base_particle');
 var MarkovChainEvaluator = require('./../util/markov').ChainEvaluator;
 var random = require('./../util/random');
 
-function OrganicBaseParticle(world, config) {
+function PlantParticle(world, config) {
 	BaseParticle.call(this, world, config);
 }
 
-OrganicBaseParticle.prototype = {
+PlantParticle.prototype = {
 
 	__proto__: BaseParticle.prototype,
 
@@ -46,10 +46,10 @@ OrganicBaseParticle.prototype = {
 
 	grow: function() {
 		if (this.currentFuel > this.requiredFuelToSpawn) {
-			this.world.spawnNear(this, OrganicBaseParticle);
+			this.world.spawnNear(this, PlantParticle);
 			this.currentFuel = 0;
 		}
 	}
 };
 
-module.exports = OrganicBaseParticle;
+module.exports = PlantParticle;
