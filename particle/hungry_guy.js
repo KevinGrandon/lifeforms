@@ -30,14 +30,17 @@ HungryGuyParticle.prototype = {
 
 	/**
 	 * How hungry is this cell?
-	 * 10 is really hungry!
 	 */
 	get hungerScore() {
-		return 20 - this.currentFuel;
+		// Set to higher to increase hunger.
+		var hungerScoreMultiplier = 1.5;
+		return (this.requiredFuelToSpawn * hungerScoreMultiplier) - this.currentFuel;
 	},
 
 	get breedScore() {
-		return 10 - this.hungerScore;
+		// Set to higher to wait longer before breeding.
+		var breedScoreAdjust = 10;
+		return breedScoreAdjust - this.hungerScore;
 	},
 
 	findFood: function() {
