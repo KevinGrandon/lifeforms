@@ -6,7 +6,6 @@ var defaultConfig = {
 	initialParticles: [
 		{
 			count: 4000,
-			name: 'Plant',
 			classificaiton: 'Plant',
 			size: 1,
 			speed: 1,
@@ -18,7 +17,6 @@ var defaultConfig = {
 		},
 		{
 			count: 200,
-			name: 'OrganicEater',
 			classificaiton: 'Animal',
 			size: 1,
 			speed: 1,
@@ -30,7 +28,6 @@ var defaultConfig = {
 		},
 		{
 			count: 6,
-			name: 'HungryGuy',
 			classificaiton: 'Animal',
 			size: 5,
 			speed: 2,

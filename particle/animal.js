@@ -2,12 +2,12 @@ var BaseParticle = require('./base_particle');
 var MarkovChainEvaluator = require('./../util/markov').ChainEvaluator;
 var random = require('./../util/random');
 
-function HungryGuyParticle(world, config) {
+function AnimalParticle(world, config) {
 	this.targetCoords = null;
 	BaseParticle.call(this, world, config);
 }
 
-HungryGuyParticle.prototype = {
+AnimalParticle.prototype = {
 
 	__proto__: BaseParticle.prototype,
 
@@ -70,10 +70,10 @@ HungryGuyParticle.prototype = {
 
 	breed: function() {
 		if (this.currentFuel > this.requiredFuelToSpawn) {
-			this.world.spawnNear(this, HungryGuyParticle);
+			this.world.spawnNear(this, AnimalParticle);
 			this.currentFuel = 0;
 		}
 	}
 };
 
-module.exports = HungryGuyParticle;
+module.exports = AnimalParticle;
