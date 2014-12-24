@@ -13,7 +13,8 @@ var defaultConfig = {
 			color: '#00FF00',
 			eyesight: 0,
 			requiredFuelToSpawn: 10,
-			fuelValueWhenConsumed: 1
+			fuelValueWhenConsumed: 1,
+			consumes: null
 		},
 		{
 			count: 200,
@@ -24,7 +25,8 @@ var defaultConfig = {
 			color: '#FF0000',
 			eyesight: 20,
 			requiredFuelToSpawn: 8,
-			fuelValueWhenConsumed: 2
+			fuelValueWhenConsumed: 2,
+			consumes: ['Plant']
 		},
 		{
 			count: 6,
@@ -35,7 +37,8 @@ var defaultConfig = {
 			color: '#0000FF',
 			eyesight: 100,
 			requiredFuelToSpawn: 20,
-			fuelValueWhenConsumed: 5
+			fuelValueWhenConsumed: 5,
+			consumes: ['Animal']
 		}
 	]
 };

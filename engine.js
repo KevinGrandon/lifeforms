@@ -120,7 +120,7 @@ Engine.prototype = {
 	 * Uses the particle.eyesight for distance, searches all blocks within that
 	 * distance and returns a randomly selected particle of the requested type.
 	 * @param {Object} particle
-	 * @param {String} lookFor Name of the new particle to look for.
+	 * @param {Array} lookFor Names of types of particles to look for.
 	 */
 	findClosestWithinSensors: function(particle, lookFor) {
 		var allParticlesWithTypeInRange = [];
@@ -134,7 +134,7 @@ Engine.prototype = {
 
 		for (var x = minX; x < maxX; x++) {
 			for (var y = minY; y < maxY; y++) {
-				var foundParticles = this.getAtLocation([x, y], lookFor);
+				var foundParticles = this.getAtLocation([x, y], lookFor[0]);
 				allParticlesWithTypeInRange = allParticlesWithTypeInRange.concat(foundParticles);
 			}
 		}
@@ -146,9 +146,11 @@ Engine.prototype = {
 		for (var i = 0, iLen = allParticlesWithTypeInRange.length; i < iLen; i++) {
 			var eachParticle = allParticlesWithTypeInRange[i];
 			var theDistance = distance(eachParticle.position, particle.position);
-			if (!closestDistance || theDistance < closestDistance) {
-				closestDistance = theDistance;
-				target = eachParticle;
+			if (eachParticle.id !== particle.id && (
+					!closestDistance || theDistance < closestDistance
+				)) {
+					closestDistance = theDistance;
+					target = eachParticle;
 			}
 
 			// Bail if we're within acceptable bounds.
@@ -177,7 +179,7 @@ Engine.prototype = {
 			var particle = searchParticles[i];
 			if (pos[0] === particle.position[0] &&
 				pos[1] === particle.position[1] &&
-				particle.name === filterType) {
+				particle.classificaiton === filterType) {
 					atLocation.push(particle);
 			}
 		}
@@ -187,14 +189,15 @@ Engine.prototype = {
 	/**
 	 * Tries to consume the type of particle at the current location.
 	 * @param {Object} particle
-	 * @param {String} targetType The type of particle to consume.
+	 * @param {Array} targetType The types of particle to consume.
 	 * @return {Integer} The amount of fuel gained by consuming this particle.
 	 */
-	tryToEatAtCurrentLocation: function(particle, targetType) {
+	tryToEatAtCurrentLocation: function(particle, targetTypes) {
 		// Find the particle at the current location with the targetType we want. 
-		var atCurrentLocation = this.getAtLocation(particle.position, targetType);
+		var atCurrentLocation = this.getAtLocation(particle.position, targetTypes[0]);
 		for (var i = 0, iLen = atCurrentLocation.length; i < iLen; i++) {
 			var eachParticle = atCurrentLocation[i];
+			if (eachParticle.id === particle.id) { continue; }
 			var fuelGained = eachParticle.fuelValueWhenConsumed;
 			this.removeParticle(eachParticle);
 			return fuelGained;
