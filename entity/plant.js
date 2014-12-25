@@ -1,14 +1,14 @@
-var BaseParticle = require('./base_particle');
+var BaseEntity = require('./base_entity');
 var MarkovChainEvaluator = require('./../util/markov').ChainEvaluator;
 var random = require('./../util/random');
 
 function PlantParticle(world, config) {
-	BaseParticle.call(this, world, config);
+	BaseEntity.call(this, world, config);
 }
 
 PlantParticle.prototype = {
 
-	__proto__: BaseParticle.prototype,
+	__proto__: BaseEntity.prototype,
 
 	tick: function() {
 		var states = {

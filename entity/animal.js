@@ -1,15 +1,15 @@
-var BaseParticle = require('./base_particle');
+var BaseEntity = require('./base_entity');
 var MarkovChainEvaluator = require('./../util/markov').ChainEvaluator;
 var random = require('./../util/random');
 
 function AnimalParticle(world, config) {
 	this.targetCoords = null;
-	BaseParticle.call(this, world, config);
+	BaseEntity.call(this, world, config);
 }
 
 AnimalParticle.prototype = {
 
-	__proto__: BaseParticle.prototype,
+	__proto__: BaseEntity.prototype,
 
 	tick: function() {
 		var states = {
@@ -49,7 +49,7 @@ AnimalParticle.prototype = {
 			this.targetCoords = null;
 		} else if (this.targetCoords) {
 			// Move towards goal.
-			BaseParticle.prototype.moveTowards.call(this, this.targetCoords);
+			BaseEntity.prototype.moveTowards.call(this, this.targetCoords);
 		} else {
 			// Find food and set coords to walk to.
 			var closest = this.world.findClosestWithinSensors(this, this.consumes);

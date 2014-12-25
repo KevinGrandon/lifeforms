@@ -1,6 +1,6 @@
 var distance = require('./../util/distance');
 
-function BaseParticle(world, config) {
+function BaseEntity(world, config) {
 	this.world = world;
 	this.originalConfig = {};
 
@@ -12,7 +12,7 @@ function BaseParticle(world, config) {
 	this.world.update(this, 'created');
 }
 
-BaseParticle.prototype = {
+BaseEntity.prototype = {
 
 	tick: function() {
 	},
@@ -41,4 +41,4 @@ BaseParticle.prototype = {
 	}
 };
 
-module.exports = BaseParticle;
+module.exports = BaseEntity;
