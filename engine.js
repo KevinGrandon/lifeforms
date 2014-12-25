@@ -216,9 +216,9 @@ Engine.prototype = {
 
 	init: function() {
 		// Populate initial particles.
-		for (var idx = 0; idx < this.config.initialParticles.length; idx++) {
-			var particleDef = this.config.initialParticles[idx];
-			var ParticleClass = require('./particle/' + particleDef.classificaiton);
+		for (var idx = 0; idx < this.config.initialLifeforms.length; idx++) {
+			var particleDef = this.config.initialLifeforms[idx];
+			var ParticleClass = require('./entity/' + particleDef.classificaiton);
 			var count = particleDef.count;
 
 			for (var j = 0; j < count; j++) {

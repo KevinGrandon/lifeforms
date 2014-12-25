@@ -1,12 +1,12 @@
-# Particles
+# Lifeforms
 
-An experimental world with lots and lots of particles.
+An experimental world with lifeform emulation.
 
 ## Usage
 
 First clone the repo.
 ```
-git clone https://github.com/KevinGrandon/particles.git
+git clone https://github.com/KevinGrandon/lifeforms.git
 ```
 
 Install dependencies:
@@ -16,7 +16,7 @@ npm install
 
 Start the server:
 ```
-node particle
+node index
 ```
 
 Navigate to: <a href="http://localhost:8080">http://localhost:8080</a>.

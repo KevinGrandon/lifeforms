@@ -3,7 +3,7 @@ var defaultConfig = {
 
 	tickDelay: 100,
 
-	initialParticles: [
+	initialLifeforms: [
 		/**
 		 * A note about particle configuration:
 		 * count - The number of initial particles of this type populated on the map.
@@ -55,9 +55,9 @@ var defaultConfig = {
 // Handle DEBUG cases.
 // Pass SMALL=1 node particle to reduce particles.
 if (process.env.SMALL) {
-	defaultConfig.initialParticles[0].count = 1;
-	defaultConfig.initialParticles[1].count = 1;
-	defaultConfig.initialParticles[2].count = 1;
+	defaultConfig.initialLifeforms[0].count = 1;
+	defaultConfig.initialLifeforms[1].count = 1;
+	defaultConfig.initialLifeforms[2].count = 1;
 	defaultConfig.worldSize = 100;
 }
 

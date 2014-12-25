@@ -1,7 +1,7 @@
 {
-  "name": "particle",
+  "name": "lifeforms",
   "version": "1.0.0",
-  "description": "omgparticle.",
+  "description": "lifeforms",
   "dependencies": {
     "debug": "^2.1.0",
     "ejs": "^1.0.0",
