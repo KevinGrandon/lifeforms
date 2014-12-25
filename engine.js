@@ -114,7 +114,9 @@ Engine.prototype = {
 	 * Uses the particle.eyesight for distance, searches all blocks within that
 	 * distance and returns a randomly selected particle of the requested type.
 	 * @param {Object} particle
-	 * @param {Array} lookFor Names of types of particles to look for.
+	 * @param {Object} lookFor Search configuration with properties:
+	 *  - consumes A list of lifeform classifications we can consume.
+	 *  - notSpecies Invalid species types.
 	 */
 	findClosestWithinSensors: function(particle, lookFor) {
 		var allParticlesWithTypeInRange = [];
@@ -128,7 +130,7 @@ Engine.prototype = {
 
 		for (var x = minX; x < maxX; x++) {
 			for (var y = minY; y < maxY; y++) {
-				var foundParticles = this.getAtLocation([x, y], lookFor[0]);
+				var foundParticles = this.getAtLocation([x, y], lookFor.consumes[0]);
 				allParticlesWithTypeInRange = allParticlesWithTypeInRange.concat(foundParticles);
 			}
 		}
@@ -140,7 +142,9 @@ Engine.prototype = {
 		for (var i = 0, iLen = allParticlesWithTypeInRange.length; i < iLen; i++) {
 			var eachParticle = allParticlesWithTypeInRange[i];
 			var theDistance = distance(eachParticle.position, particle.position);
-			if (eachParticle.id !== particle.id && (
+			if (eachParticle.id !== particle.id && 
+				eachParticle.species[0] !== lookFor.notSpecies[0] &&
+				(
 					!closestDistance || theDistance < closestDistance
 				)) {
 					closestDistance = theDistance;

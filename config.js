@@ -18,6 +18,7 @@ var defaultConfig = {
 		 */
 		{
 			count: 4000,
+			species: [1, 0, 0],
 			classificaiton: 'Plant',
 			size: 1,
 			speed: 1,
@@ -29,6 +30,7 @@ var defaultConfig = {
 		},
 		{
 			count: 200,
+			species: [2, 0, 0],
 			classificaiton: 'Animal',
 			size: 1,
 			speed: 1,
@@ -40,6 +42,7 @@ var defaultConfig = {
 		},
 		{
 			count: 6,
+			species: [3, 0, 0],
 			classificaiton: 'Animal',
 			size: 5,
 			speed: 2,
