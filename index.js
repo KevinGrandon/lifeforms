@@ -13,11 +13,11 @@ app.get('/', function(req, res) {
     res.render('index.html');
 });
 
-app.get('/particles/current', function(req, res) {
-	var particleData = engine.getParticleViewData();
+app.get('/entities/current', function(req, res) {
+	var entityData = engine.getParticleViewData();
 
-	particleData = JSON.stringify(particleData);
-	res.send(particleData);
+	entityData = JSON.stringify(entityData);
+	res.send(entityData);
 });
 
 app.use(express.static(__dirname + '/public'));

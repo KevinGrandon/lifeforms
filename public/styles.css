@@ -2,17 +2,17 @@ body {
 	background: #000;
 }
 
-.particle {
+.entity {
 	display: block;
 	height: 1px;
 	width: 1px;
 	position: absolute;
 }
 
-.particle.organic {
+.entity.organic {
 	background: green;
 }
 
-.particle.hunter {
+.entity.hunter {
 	background: red;
 }

@@ -1,9 +1,9 @@
-function BaseParticle(config) {
+function Entity(config) {
 	this.config = config;
 	this.move(config.position);
 }
 
-BaseParticle.prototype = {
+Entity.prototype = {
 
 	get color() {
 		return this.config.color;
