@@ -20,18 +20,6 @@ PlantParticle.prototype = {
 		this['_handle_' + action]();
 	},
 
-	/**
-	 * How hungry is this cell?
-	 * 10 is really hungry!
-	 */
-	get hungerScore() {
-		return 10 - this.currentFuel;
-	},
-
-	get breedScore() {
-		return this.currentFuel;
-	},
-
 	_handle_eating: function() {
 		if (Math.random() > 0.5) {
 			this.currentFuel++;

@@ -17,6 +17,25 @@ BaseEntity.prototype = {
 	tick: function() {
 	},
 
+	/**
+	 * How hungry is this cell?
+	 */
+	get hungerScore() {
+		// Set to higher to increase hunger.
+		var hungerScoreMultiplier = 1.5;
+		return (this.requiredFuelToSpawn * hungerScoreMultiplier) - this.currentFuel;
+	},
+
+	get breedScore() {
+		// Set to higher to wait longer before breeding.
+		var breedScoreAdjust = 10;
+		return breedScoreAdjust - this.hungerScore;
+	},
+
+	/**
+	 * Moves the cell towards a position.
+	 * @param {Position} newPosition
+	 */
 	moveTowards: function(newPosition) {
 		this.world.unregisterPosition(this.id, this.position);
 

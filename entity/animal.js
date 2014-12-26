@@ -21,21 +21,6 @@ AnimalParticle.prototype = {
 		this['_handle_' + action]();
 	},
 
-	/**
-	 * How hungry is this cell?
-	 */
-	get hungerScore() {
-		// Set to higher to increase hunger.
-		var hungerScoreMultiplier = 1.5;
-		return (this.requiredFuelToSpawn * hungerScoreMultiplier) - this.currentFuel;
-	},
-
-	get breedScore() {
-		// Set to higher to wait longer before breeding.
-		var breedScoreAdjust = 10;
-		return breedScoreAdjust - this.hungerScore;
-	},
-
 	findFood: function() {
 		// Got to goal. Is food?
 		if (this.targetCoords && this.targetCoords[0] === this.position[0] && this.targetCoords[1] === this.position[1]) {
