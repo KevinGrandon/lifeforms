@@ -1,3 +1,4 @@
+var EntityClass = require('./entity/entity');
 var distance = require('./util/distance');
 var random = require('./util/random');
 var uuid = require('node-uuid');
@@ -98,15 +99,14 @@ Engine.prototype = {
 	/**
 	 * Spawns a new particle near a location.
 	 * @param {Object} particle
-	 * @param {Object} BaseClass Of the new particle to spawn.
 	 */
-	spawnNear: function(particle, BaseClass) {
+	spawnNear: function(particle) {
 		var spawnDistance = particle.size * 5;
 		var newParticlePosition = [
 			particle.position[0] + random(0 - spawnDistance, spawnDistance),
 			particle.position[1] + random(0 - spawnDistance, spawnDistance)
 		];
-		this.createParticle(BaseClass, particle.originalConfig, newParticlePosition);
+		this.createParticle(EntityClass, particle.originalConfig, newParticlePosition);
 	},
 
 	/**
@@ -222,7 +222,6 @@ Engine.prototype = {
 		// Populate initial particles.
 		for (var idx = 0; idx < this.config.initialLifeforms.length; idx++) {
 			var particleDef = this.config.initialLifeforms[idx];
-			var ParticleClass = require('./entity/' + particleDef.classificaiton);
 			var count = particleDef.count;
 
 			for (var j = 0; j < count; j++) {
@@ -230,7 +229,7 @@ Engine.prototype = {
 					random(0, this.config.worldSize),
 					random(0, this.config.worldSize)
 				];
-				this.createParticle(ParticleClass, particleDef, position);
+				this.createParticle(EntityClass, particleDef, position);
 			}
 		}
 

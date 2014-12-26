@@ -26,7 +26,12 @@ var defaultConfig = {
 			eyesight: 0,
 			requiredFuelToSpawn: 10,
 			fuelValueWhenConsumed: 1,
-			consumes: null
+			consumes: null,
+			states: ['breeding', 'eating'],
+			strategyMixin: {
+				breeding: 'asexual',
+				eating: 'absorb'
+			}
 		},
 		{
 			count: 200,
@@ -38,7 +43,12 @@ var defaultConfig = {
 			eyesight: 20,
 			requiredFuelToSpawn: 8,
 			fuelValueWhenConsumed: 2,
-			consumes: ['Plant']
+			consumes: ['Plant'],
+			states: ['breeding', 'eating'],
+			strategyMixin: {
+				breeding: 'asexual',
+				eating: 'hunt'
+			}
 		},
 		{
 			count: 6,
@@ -50,7 +60,12 @@ var defaultConfig = {
 			eyesight: 100,
 			requiredFuelToSpawn: 20,
 			fuelValueWhenConsumed: 5,
-			consumes: ['Animal']
+			consumes: ['Animal'],
+			states: ['breeding', 'eating'],
+			strategyMixin: {
+				breeding: 'asexual',
+				eating: 'hunt'
+			}
 		}
 	]
 };

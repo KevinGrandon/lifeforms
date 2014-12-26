@@ -1,6 +1,7 @@
+var MarkovChainEvaluator = require('./../util/markov').ChainEvaluator;
 var distance = require('./../util/distance');
 
-function BaseEntity(world, config) {
+function Entity(world, config) {
 	this.world = world;
 	this.originalConfig = {};
 
@@ -12,24 +13,34 @@ function BaseEntity(world, config) {
 	this.world.update(this, 'created');
 }
 
-BaseEntity.prototype = {
+Entity.prototype = {
 
 	tick: function() {
+		var states = {};
+
+		for (var i = 0; i < this.states.length; i++) {
+			var eachState = this.states[i];
+			states[eachState] = this[eachState + 'Score'];
+		}
+
+		var action = MarkovChainEvaluator.evaluate(states);
+		var strategyMixin = require('./strategies/' + action);
+		strategyMixin[this.strategyMixin[action]].call(this);
 	},
 
 	/**
 	 * How hungry is this cell?
 	 */
-	get hungerScore() {
+	get eatingScore() {
 		// Set to higher to increase hunger.
 		var hungerScoreMultiplier = 1.5;
 		return (this.requiredFuelToSpawn * hungerScoreMultiplier) - this.currentFuel;
 	},
 
-	get breedScore() {
+	get breedingScore() {
 		// Set to higher to wait longer before breeding.
 		var breedScoreAdjust = 10;
-		return breedScoreAdjust - this.hungerScore;
+		return breedScoreAdjust - this.eatingScore;
 	},
 
 	/**
@@ -60,4 +71,4 @@ BaseEntity.prototype = {
 	}
 };
 
-module.exports = BaseEntity;
+module.exports = Entity;
