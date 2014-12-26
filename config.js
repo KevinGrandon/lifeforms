@@ -21,7 +21,7 @@ var defaultConfig = {
 			species: [1, 0, 0],
 			classificaiton: 'Plant',
 			size: 1,
-			speed: 1,
+			speed: 0,
 			color: '#00FF00',
 			eyesight: 0,
 			requiredFuelToSpawn: 10,

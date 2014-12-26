@@ -13,17 +13,11 @@ PlantParticle.prototype = {
 	tick: function() {
 		var states = {
 			eating: this.hungerScore,
-			growing: this.growScore,
+			breeding: this.breedScore,
 		};
 
 		var action = MarkovChainEvaluator.evaluate(states);
-		if (action === 'eating') {
-			this.feed();
-		} else if (action === 'growing') {
-			this.grow();
-		}
-
-		this.action = action;
+		this['_handle_' + action]();
 	},
 
 	/**
@@ -34,17 +28,17 @@ PlantParticle.prototype = {
 		return 10 - this.currentFuel;
 	},
 
-	get growScore() {
+	get breedScore() {
 		return this.currentFuel;
 	},
 
-	feed: function() {
+	_handle_eating: function() {
 		if (Math.random() > 0.5) {
 			this.currentFuel++;
 		}
 	},
 
-	grow: function() {
+	_handle_breeding: function() {
 		if (this.currentFuel > this.requiredFuelToSpawn) {
 			this.world.spawnNear(this, PlantParticle);
 			this.currentFuel = 0;

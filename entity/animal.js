@@ -18,14 +18,7 @@ AnimalParticle.prototype = {
 		};
 
 		var action = MarkovChainEvaluator.evaluate(states);
-		if (action === 'eating') {
-			this.findFood();
-			this.feed();
-		} else if (action === 'breeding') {
-			this.breed();
-		}
-
-		this.action = action;
+		this['_handle_' + action]();
 	},
 
 	/**
@@ -65,13 +58,14 @@ AnimalParticle.prototype = {
 		}
 	},
 
-	feed: function() {
+	_handle_eating: function() {
+		this.findFood();
 		var fuel = this.world.tryToEatAtCurrentLocation(this, this.consumes);
 		// Increment the fuel by what we ate.
 		this.currentFuel += fuel;
 	},
 
-	breed: function() {
+	_handle_breeding: function() {
 		if (this.currentFuel > this.requiredFuelToSpawn) {
 			this.world.spawnNear(this, AnimalParticle);
 			this.currentFuel = 0;
