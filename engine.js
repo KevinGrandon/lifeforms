@@ -101,12 +101,33 @@ Engine.prototype = {
 	 * @param {Object} particle
 	 */
 	spawnNear: function(particle) {
-		var spawnDistance = particle.size * 5;
-		var newParticlePosition = [
-			particle.position[0] + random(0 - spawnDistance, spawnDistance),
-			particle.position[1] + random(0 - spawnDistance, spawnDistance)
-		];
-		this.createParticle(EntityClass, particle.originalConfig, newParticlePosition);
+		var spawnDistance = particle.spawnDistance;
+		var positionsWithinReach = [];
+
+		// Get all squares within reach.
+		for (var x = particle.position[0] - spawnDistance; x < particle.position[0] + spawnDistance; x++) {
+			for (var y = particle.position[1] - spawnDistance; y < particle.position[1] + spawnDistance; y++) {
+				positionsWithinReach.push([x, y]);
+			}
+		}
+
+		// Get a random position which does not contain a lifeform of the same type.
+		while(true) {
+
+			if (!positionsWithinReach.length) {
+				return;
+			}
+
+			var randomIdx = Math.floor(Math.random() * positionsWithinReach.length);
+			var position = positionsWithinReach[randomIdx];
+			positionsWithinReach.splice(randomIdx, 1);
+
+			var existingOfSameType = this.getAtLocation(position, particle.classificaiton);
+			if (!existingOfSameType.length) {
+				this.createParticle(EntityClass, particle.originalConfig, position);
+				break;
+			}
+		}
 	},
 
 	/**

@@ -13,6 +13,7 @@ var defaultConfig = {
 		 * color - The color of the particle.
 		 * eyesight - How far away the particle can "see". Useful for animal types.
 		 * requiredFuelToSpawn - This much fuel is required to breed new generations.
+		 * spawnDistance - After breeding, the maximum distance away from the parent that new particles can spawn. Note that particles can not spawn on top of the same particle, they must be in an adjacent position.
 		 * fuelValueWhenConsumed - How much fuel this particle gives when consumed.
 		 * consumes - What classification of particles can we eat.
 		 * states - A list of all initial states, and what strategy to use for those states.
@@ -26,6 +27,7 @@ var defaultConfig = {
 			color: '#00FF00',
 			eyesight: 0,
 			requiredFuelToSpawn: 10,
+			spawnDistance: 5,
 			fuelValueWhenConsumed: 1,
 			consumes: null,
 			states: {
@@ -48,6 +50,7 @@ var defaultConfig = {
 			color: '#FF0000',
 			eyesight: 20,
 			requiredFuelToSpawn: 8,
+			spawnDistance: 5,
 			fuelValueWhenConsumed: 2,
 			consumes: ['Plant'],
 			states: {
@@ -70,6 +73,7 @@ var defaultConfig = {
 			color: '#0000FF',
 			eyesight: 100,
 			requiredFuelToSpawn: 20,
+			spawnDistance: 5,
 			fuelValueWhenConsumed: 5,
 			consumes: ['Animal'],
 			states: {
