@@ -27,10 +27,15 @@ var defaultConfig = {
 			requiredFuelToSpawn: 10,
 			fuelValueWhenConsumed: 1,
 			consumes: null,
-			states: ['breeding', 'eating'],
-			strategyMixin: {
-				breeding: 'asexual',
-				eating: 'absorb'
+			states: {
+				eating: {
+					next: ['eating', 'breeding'],
+					strategy: 'absorb'
+				},
+				breeding: {
+					next: ['eating'],
+					strategy: 'asexual'
+				}
 			}
 		},
 		{
@@ -44,10 +49,15 @@ var defaultConfig = {
 			requiredFuelToSpawn: 8,
 			fuelValueWhenConsumed: 2,
 			consumes: ['Plant'],
-			states: ['breeding', 'eating'],
-			strategyMixin: {
-				breeding: 'asexual',
-				eating: 'hunt'
+			states: {
+				eating: {
+					next: ['eating', 'breeding'],
+					strategy: 'hunt'
+				},
+				breeding: {
+					next: ['eating'],
+					strategy: 'asexual'
+				}
 			}
 		},
 		{
@@ -61,10 +71,15 @@ var defaultConfig = {
 			requiredFuelToSpawn: 20,
 			fuelValueWhenConsumed: 5,
 			consumes: ['Animal'],
-			states: ['breeding', 'eating'],
-			strategyMixin: {
-				breeding: 'asexual',
-				eating: 'hunt'
+			states: {
+				eating: {
+					next: ['eating', 'breeding'],
+					strategy: 'hunt'
+				},
+				breeding: {
+					next: ['eating'],
+					strategy: 'asexual'
+				}
 			}
 		}
 	]

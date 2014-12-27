@@ -1,4 +1,4 @@
-var MarkovChainEvaluator = require('./../util/markov').ChainEvaluator;
+var Markov = require('./../util/markov');
 var distance = require('./../util/distance');
 
 function Entity(world, config) {
@@ -10,22 +10,32 @@ function Entity(world, config) {
 		this[i] = config[i];
 	}
 
+	// Build markov evaluator.
+	var markovProces = new Markov.Process(this.markovReward.bind(this));
+	for (var i in this.states) {
+		var state = this.states[i];
+		markovProces.add(i, state.next);
+
+		if (!this.state) {
+			this.state = i;
+		}
+	}
+	this.markov = markovProces;
+
 	this.world.update(this, 'created');
 }
 
 Entity.prototype = {
 
+	markovReward: function(currentState, state) {
+		return this[state + 'Score'];
+	},
+
 	tick: function() {
-		var states = {};
-
-		for (var i = 0; i < this.states.length; i++) {
-			var eachState = this.states[i];
-			states[eachState] = this[eachState + 'Score'];
-		}
-
-		var action = MarkovChainEvaluator.evaluate(states);
-		var strategyMixin = require('./strategies/' + action);
-		strategyMixin[this.strategyMixin[action]].call(this);
+		this.state = this.markov.evaluate(this.state, this);
+		var strategyMixin = require('./strategies/' + this.state);
+		var strategy = this.states[this.state].strategy;
+		strategyMixin[strategy].call(this);
 	},
 
 	/**
