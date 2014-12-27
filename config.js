@@ -15,6 +15,7 @@ var defaultConfig = {
 		 * requiredFuelToSpawn - This much fuel is required to breed new generations.
 		 * fuelValueWhenConsumed - How much fuel this particle gives when consumed.
 		 * consumes - What classification of particles can we eat.
+		 * states - A list of all initial states, and what strategy to use for those states.
 		 */
 		{
 			count: 4000,
