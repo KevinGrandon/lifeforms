@@ -65,8 +65,31 @@ var defaultConfig = {
 			}
 		},
 		{
-			count: 6,
+			count: 100,
 			species: [3, 0, 0],
+			classificaiton: 'Animal',
+			size: 1,
+			speed: 2,
+			color: '#FF8000',
+			eyesight: 10,
+			requiredFuelToSpawn: 16,
+			spawnDistance: 5,
+			fuelValueWhenConsumed: 2,
+			consumes: ['Plant'],
+			states: {
+				eating: {
+					next: ['eating', 'breeding'],
+					strategy: 'hunt'
+				},
+				breeding: {
+					next: ['eating'],
+					strategy: 'asexual'
+				}
+			}
+		},
+		{
+			count: 6,
+			species: [4, 0, 0],
 			classificaiton: 'Animal',
 			size: 5,
 			speed: 2,
