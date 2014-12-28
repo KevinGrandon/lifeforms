@@ -1,7 +1,7 @@
 var defaultConfig = {
 	worldSize: 2000,
 
-	tickDelay: 100,
+	tickDelay: 50,
 
 	initialLifeforms: [
 		/**
