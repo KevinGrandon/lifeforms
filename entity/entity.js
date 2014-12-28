@@ -11,16 +11,17 @@ function Entity(world, config) {
 	}
 
 	// Build markov evaluator.
-	var markovProces = new Markov.Process(this.markovReward.bind(this));
+	var markovProcess = new Markov.Process(this.markovReward.bind(this));
 	for (var i in this.states) {
 		var state = this.states[i];
-		markovProces.add(i, state.next);
+		markovProcess.add(i, state.next);
 
+		// Default the state to the first one found.
 		if (!this.state) {
 			this.state = i;
 		}
 	}
-	this.markov = markovProces;
+	this.markov = markovProcess;
 
 	this.world.update(this, 'created');
 }
