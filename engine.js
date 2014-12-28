@@ -256,7 +256,10 @@ Engine.prototype = {
 
 		// Loop
 		var self = this;
-		setInterval(function() {
+		var _PROFILE_LOOP_START;
+		var mainLoop = function() {
+			_PROFILE_LOOP_START = Date.now();
+
 			for (var i = particles.length - 1; i >= 0; i--) {
 				var particle = particles[i];
 				if (particle.LOOP_HOOK_REMOVED) {
@@ -269,7 +272,11 @@ Engine.prototype = {
 					particle.tick();
 				}
 			}
-		}, this.config.tickDelay);
+
+			console.log('loop took: ', Date.now() - _PROFILE_LOOP_START, ' entities: ', particles.length);
+			setTimeout(mainLoop, this.config.tickDelay);
+		}.bind(this);
+		mainLoop.call(this);
 	}
 };
 
