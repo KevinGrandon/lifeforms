@@ -3,6 +3,8 @@ var defaultConfig = {
 
 	tickDelay: 50,
 
+	maxLifeforms: 50000,
+
 	initialLifeforms: [
 		/**
 		 * A note about particle configuration:

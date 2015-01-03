@@ -228,6 +228,12 @@ Engine.prototype = {
 	},
 
 	createParticle: function(ParticleClass, config, position) {
+
+		// Do not allow more particles than the limit to be created.
+		if (particles.length > this.config.maxLifeforms) {
+			return;
+		}
+
 		config.id = uuid.v4();
 		config.position = position;
 
