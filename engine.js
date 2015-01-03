@@ -1,6 +1,8 @@
 var EntityClass = require('./entity/entity');
 var distance = require('./util/distance');
 var random = require('./util/random');
+
+var numeral = require('numeral');
 var uuid = require('node-uuid');
 
 // List of all particles.
@@ -273,7 +275,7 @@ Engine.prototype = {
 				}
 			}
 
-			console.log('loop took: ', Date.now() - _PROFILE_LOOP_START, ' entities: ', particles.length);
+			console.log('loop took: ', numeral(Date.now() - _PROFILE_LOOP_START).format('0,0'), 'ms, entities: ', numeral(particles.length).format('0,0'));
 			setTimeout(mainLoop, this.config.tickDelay);
 		}.bind(this);
 		mainLoop.call(this);
