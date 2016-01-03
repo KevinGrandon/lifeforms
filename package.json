@@ -11,5 +11,6 @@
     "socket.io": "^1.2.1"
   },
   "author": "Kevin Grandon <kevingrandon@yahoo.com>",
-  "license": "MPL"
+  "repository": "git@github.com:KevinGrandon/lifeforms.git",
+  "license": "MPL-2.0"
 }
